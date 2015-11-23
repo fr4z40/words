@@ -112,6 +112,4 @@ class gen:
                 var = (list((ano, m, d)))
                 if var not in back:
                     back.append(var)
-        del meses
-        del dias
         return back
