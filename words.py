@@ -9,6 +9,13 @@ A Class: Combinations generator
 and a function: file_filter
 '''
 
+
+days = list(map((lambda x: ('0%s' % str(x))), range(1,10)))
+days = days + list(map((lambda x: str(x)), range(1,32)))
+months = list(map((lambda x: ('0%s' % str(x))), range(1,10)))
+months = months + list(map((lambda x: str(x)), range(1,13)))
+
+
 def file_filter(f_in, f_out):
     '''
     Removes repetitions.
@@ -23,17 +30,13 @@ def file_filter(f_in, f_out):
     '''
 
     with open(f_in, 'r', encoding='utf8') as filein:
-        cntd = filein.readlines()
+        cntd = list(set((((filein.read()).replace('\r','')).replace('\t','')).split('\n')))
     filein.close()
-    cntd_out = []
-    for x in cntd:
-        cntd_out.append(((x.replace('\r', '')).replace('\t', '')).strip('\n'))
-    cntd_out = list(set(cntd_out))
-    cntd_out.sort()
+    cntd.sort()
 
     with open(f_out, 'w', encoding='utf8') as fileout:
-        for x in cntd_out:
-            fileout.write('%s\n' % x)
+        for x in cntd:
+            fileout.write('%s\n' % x.strip())
     fileout.close()
 
 
@@ -68,48 +71,59 @@ class gen:
         return(posfixo)
 
 
-    def wordlist_dates_dma(ano):
+    def wdlist_yearbase(year):
         '''{
-              Generate a list of date-lists...
+              Generate a list of "date-lists", based on year "X"...
               something like: [[d, m, y], [m, d, y], [y, m, d] ... ]
               example:
                   wordlist_dates_dma('2000')
                   >>>[[2000, m, d], [d, m, 2000] ... ]
            }
         '''
-        dias = []
-        meses = []
         back = []
-        for x in range(1,13):
-            if len(str(x)) == 1:
-                meses.append('0%s' % str(x))
-                meses.append(str(x))
-            else:
-                meses.append(str(x))
-        for x in range(1, 32):
-            if len(str(x)) == 1:
-                dias.append('0%s' % str(x))
-                dias.append(str(x))
-            else:
-                dias.append(str(x))
-        for d in dias:
-            for m in meses:
-                var = (list((d, m, ano)))
-                if var not in back:
-                    back.append(var)
-                var = (list((d, ano, m)))
-                if var not in back:
-                    back.append(var)
-                var = (list((m, d, ano)))
-                if var not in back:
-                    back.append(var)
-                var = (list((m, ano, d)))
-                if var not in back:
-                    back.append(var)
-                var = (list((ano, d, m)))
-                if var not in back:
-                    back.append(var)
-                var = (list((ano, m, d)))
-                if var not in back:
-                    back.append(var)
+        days = list(map((lambda x: ('0%s' % str(x))), range(1,10)))
+        days = days + list(map((lambda x: str(x)), range(1,32)))
+        months = list(map((lambda x: ('0%s' % str(x))), range(1,10)))
+        months = months + list(map((lambda x: str(x)), range(1,13)))
+        for d in days:
+            temp = []
+            for m in months:
+                temp.append(list((d,m,str(year))))
+                temp.append(list((d,str(year),m)))
+                temp.append(list((m,d,str(year))))
+                temp.append(list((m,str(year),d)))
+                temp.append(list((str(year),d,m)))
+                temp.append(list((str(year),m,d)))
+            for t in temp:
+                if t not in back:
+                    back.append(t)
+        return back
+
+
+    def wdlist_mounth(mounth, year):
+        '''{
+              Generate a list of "date-lists", based on mounth and year
+              something like: [[d, m, y], [m, d, y], [y, m, d] ... ]
+              example:
+                  wordlist_dates_dma('03','2000')
+                  >>>[[2000, 03, d], [d, 03, 2000] ... ]
+           }
+        '''
+        back = []
+        temp = []
+        days = list(map((lambda x: ('0%s' % str(x))), range(1,10)))
+        days = days + list(map((lambda x: str(x)), range(1,32)))
+        months = list(map((lambda x: ('0%s' % str(x))), range(1,10)))
+        months = months + list(map((lambda x: str(x)), range(1,13)))
+        for d in days:
+            temp.append(list((d, str(mounth), str(year))))
+            temp.append(list((d, str(year), str(mounth))))
+            temp.append(list((str(mounth), d, str(year))))
+            temp.append(list((str(mounth), str(year), d)))
+            temp.append(list((str(year), d, str(mounth))))
+            temp.append(list((str(year), str(mounth), d)))
+        for t in temp:
+            if t not in back:
+                back.append(t)
+        back.sort()
         return back
