@@ -18,7 +18,7 @@ months = months + list(map((lambda x: str(x)), range(1,13)))
 
 def file_filter(f_in, f_out):
     '''
-    Removes repetitions.
+    Remove repetitions.
       >> this "word" isn't the same as "word " or " word".
       >> be careful with large files.
          -----------------------------
