@@ -1,7 +1,8 @@
 # -*- coding: utf-8 -*-
 '''
-Developed by: Eduardo Frazão (fr4z40)
-https://github.com/fr4z40
+Author: Eduardo Frazão
+ * http://github.com/fr4z40
+ * https://bitbucket.org/fr4z40
 
 On jan,18,2015
 
