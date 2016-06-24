@@ -101,9 +101,9 @@ class gen:
         return back
 
 
-    def wdlist_mounth(mounth, year):
+    def wdlist_month(month, year):
         '''{
-              Generate a list of "date-lists", based on mounth and year
+              Generate a list of "date-lists", based on month and year
               something like: [[d, m, y], [m, d, y], [y, m, d] ... ]
               example:
                   wordlist_dates_dma('03','2000')
