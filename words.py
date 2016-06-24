@@ -117,12 +117,12 @@ class gen:
         months = list(map((lambda x: ('0%s' % str(x))), range(1,10)))
         months = months + list(map((lambda x: str(x)), range(1,13)))
         for d in days:
-            temp.append(list((d, str(mounth), str(year))))
-            temp.append(list((d, str(year), str(mounth))))
-            temp.append(list((str(mounth), d, str(year))))
-            temp.append(list((str(mounth), str(year), d)))
-            temp.append(list((str(year), d, str(mounth))))
-            temp.append(list((str(year), str(mounth), d)))
+            temp.append(list((d, str(month), str(year))))
+            temp.append(list((d, str(year), str(month))))
+            temp.append(list((str(month), d, str(year))))
+            temp.append(list((str(month), str(year), d)))
+            temp.append(list((str(year), d, str(month))))
+            temp.append(list((str(year), str(month), d)))
         for t in temp:
             if t not in back:
                 back.append(t)
